@@ -20,3 +20,6 @@ curl -X POST https://geo.example.com/location \
            "timestamp": "2024-09-20 21:22:23"
          }'
 ```
+
+
+![image](images/WebUI.png)
