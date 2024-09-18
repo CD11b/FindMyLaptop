@@ -1,0 +1,30 @@
+services:
+  db:
+    container_name: geoclue-flask-db
+    image: postgres:latest
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    networks:
+      - geoclue-flask
+
+  web:
+    build: .
+    container_name: geoclue-flask-web
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}  
+    networks:
+      - geoclue-flask
+
+
